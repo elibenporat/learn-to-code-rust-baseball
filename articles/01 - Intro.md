@@ -66,7 +66,8 @@ Integers are always aligned to power of 2 bytes, so they are either 8, 16, 32, 6
 Say we were looking to describe the initial state of a plate appearance. It would look something like this:
 
 ```rust
-// Balls, strikes and outs have a maximum value of 4, 3 and 3, so we'll leverage the smallest positive type: u8
+// Balls, strikes and outs have a maximum value of 4, 3 and 3
+// We'll leverage the smallest positive type: u8
 let mut balls: u8 = 0;
 let mut strikes: u8 = 0;
 let mut outs: u8 = 0;
@@ -76,11 +77,14 @@ let mut runner_1st: bool = false;
 let mut runner_2nd: bool = false;
 let mut runner_3rd: bool = false;
 
-// MLB player IDs are 6 decimal digits long, so we need u32 types that have a max value large enough. We could store it as text, but the number type will be more efficient.
+// MLB player IDs are 6 decimal digits long, so we need u32 types that have a max value large enough. 
+// We could store it as text, but the number type will be more efficient.
 let batter_id: u32 = 54361;   // Mike Trout
 let pitcher_id: u32 = 477132; // Clayton Kershaw
 
-// Say we wanted to track how many runs ahead or behind a team was. An i8 will go from -128 to 127, which should be a large enough range for us. In this case, our plate appearanc starts with the batting team down by 4 runs.
+// Say we wanted to track how many runs ahead or behind a team was.
+// An i8 will go from -128 to 127, which should be a large enough range for us.
+// In this case, our plate appearanc starts with the batting team down by 4 runs.
 let mut runs_ahead: i8 = -4;
 ```
 
