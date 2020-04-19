@@ -40,7 +40,7 @@ We are telling the computer that we have a variable called ```year``` that will 
 
 ## Basic Type Theory
 
-Types are the foundation of everything. They group together bits and imbue them with semantic meaning. Are the data integers? Are they text? True/false values? In a dynamic language, on the surface you don't see it, unless you ask javascript to compare the numberic 5 with the text '5'.
+Types are the foundation of everything. They group together bits and imbue them with semantic meaning. Are the data integers? Are they text? True/false values? In a dynamic language, on the surface, you don't see it. However,if you ask javascript to compare the numberic 5 with the text '5', you get some interesting behaviour.
 
 ```javascript
 5 ==  '5' \\ true
@@ -77,7 +77,7 @@ let mut runner_1st: bool = false;
 let mut runner_2nd: bool = false;
 let mut runner_3rd: bool = false;
 
-// MLB player IDs are 6 decimal digits long, so we need u32 types that have a max value large enough. 
+// MLB player IDs are 6 decimal digits long, so we need u32 types that have a max value large enough.
 // We could store it as text, but the number type will be more efficient.
 let batter_id: u32 = 54361;   // Mike Trout
 let pitcher_id: u32 = 477132; // Clayton Kershaw
