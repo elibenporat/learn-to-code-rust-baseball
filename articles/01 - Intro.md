@@ -36,18 +36,22 @@ At the absolute lowest level, the computer only sees a stream of bits, 0s and 1s
 let year: usize = 2020;
 ```
 
-We are telling the computer that we have a variable called ```year``` that will be one machine word (32 bits or 64 bits depending on the machine) and we want to set the value to 2020. The semicolon at the end signifies the end of the line.
+We are telling the computer that we have a variable called ```year``` that will be one machine word in size (32 bits or 64 bits depending on the machine) and we want to set the value to 2020. The semicolon at the end signifies the end of the line.
 
-## Basic Type Theory
+## What is a Type?
 
-Types are the foundation of everything. They group together bits and imbue them with semantic meaning. Are the data integers? Are they text? True/false values? In a dynamic language, on the surface, you don't see it. However,if you ask javascript to compare the numberic 5 with the text '5', you get some interesting behaviour.
+Types are the foundation of everything. They group together bits and imbue them with semantic meaning. A "type" is simply a way for us to tell the computer what a group of bits represent. Are the data integers? Are they text? True/false values? Can they be negative, or are they always positive?
+
+## Dynamic Types vs Static Types
+
+In a dynamic language, you don't see any types. However, if you ask javascript to compare the numberic 5 with the text '5', you get some interesting behaviour.
 
 ```javascript
 5 ==  '5' \\ true
 5 === '5' \\ false
 ```
 
-What's happening in the background is that the ```==``` version converts the text type of 5 into the number type 5. After the conversion, they are equal. In the ```===``` version, aka strict equality, no type conversion is done, so the values are not the same, as the underlying bits are very different.
+What's happening in the background is that the ```==``` version converts the text type of 5 into the number type 5. After the conversion, they are indeed the same. In the ```===``` version, aka strict equality, no type conversion is done, so the values are not the same, as the underlying bits are very different.
 
 When we give a variable a "type", we're telling the computer how to interpret the bits.
 
@@ -55,13 +59,14 @@ When we give a variable a "type", we're telling the computer how to interpret th
 
 For a more in-depth look at Rust types, read [Chapter 3.2 of the Rust Book](https://doc.rust-lang.org/book/ch03-02-data-types.html).
 
-Let's split our most basic tyes into two main buckets: number types and string types (text). For numbers they can be one of 3 things:
+Let's split our most basic types into two main buckets: number types (including boolean true/false) and string types (text). For numbers they can be one of 4 things:
 
-* Signed integer: Positive or negative integer
-* Unsigned integer: Positive integer
+* Signed integer: Positive or negative integer.
+* Unsigned integer: Positive integer.
 * Floting point number: Positiive or negative number with decimal points.
+* Booleans: 0 for false, 1 for true.
 
-Integers are always aligned to power of 2 bytes, so they are either 8, 16, 32, 64 or 128 bits in length. We use ```u``` to signify unsigned (positive) or ```i``` for integers that may positive or negative.
+Integers are always aligned to power of 2 bytes, so they are either 8, 16, 32, 64 or 128 bits in length. We use ```u``` to signify unsigned (positive) or ```i``` for integers that may positive or negative. So a 64 bit positive-only (unsigned) integer will be a ```u64``` compared to the signed version ```i64```.
 
 Say we were looking to describe the initial state of a plate appearance. It would look something like this:
 
