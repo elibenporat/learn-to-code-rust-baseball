@@ -1,4 +1,4 @@
-# Learn To Code With Rust and Baseball - Part 1 : Foundations
+# Learn To Code With Rust and Baseball - Chapter 1 : Foundations
 
 If you've ever wanted to learn to write code, but didn't know where to begin, we hope this series will offer you an opportunity to dip your proverbial toes into the coding world. Learning to code can appear from the outside like a monumental task; before I began my own journey on the Rust learning curve, I didn't quite think I had it in me.
 

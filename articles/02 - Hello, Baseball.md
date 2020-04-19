@@ -1,4 +1,4 @@
-# Learn To Code With Rust and Baseball - Part 2 : Hello, Baseball
+# Learn To Code With Rust and Baseball - Chapter 2 : Hello, Baseball
 
 ## Part 1 Review
 
