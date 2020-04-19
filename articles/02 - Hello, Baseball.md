@@ -1,8 +1,8 @@
 # Learn To Code With Rust and Baseball - Chapter 2 : Hello, Baseball
 
-## Part 1 Review
+## Chapter 1 Review
 
-In part 1, we touched upon types and explained our motivation for using Rust as our pedagogical tool of choice. We'll review and expand on concepts as we go, so don't worry if there are parts that don't make sense yet. We're going to attempt to strike a fine balance between depth and consicion.
+In chapter 1, we touched upon types and explained our motivation for using Rust as our pedagogical tool of choice. We'll review and expand on concepts as we go, so don't worry if there are parts that don't make sense yet. We're going to attempt to strike a fine balance between depth and consicion.
 
 ## Hello Baseball
 
