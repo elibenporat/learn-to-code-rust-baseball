@@ -8,3 +8,4 @@ edition = "2018"
 
 [dependencies]
 isahc = "0.9"
+serde = "1.0.106"

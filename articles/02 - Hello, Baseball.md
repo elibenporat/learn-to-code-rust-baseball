@@ -2,7 +2,7 @@
 
 ## Chapter 1 Review
 
-In chapter 1, we touched upon types and explained our motivation for using Rust as our pedagogical tool of choice. We'll review and expand on concepts as we go, so don't worry if there are parts that don't make sense yet. We're going to attempt to strike a fine balance between depth and consicion.
+In chapter 1, we touched upon types and explained our motivation for using Rust as our pedagogical tool of choice. We'll review and expand on concepts as we go, so don't worry if there are parts that don't make sense yet. We're going to attempt to strike a fine balance between depth and concision.
 
 ## Hello Baseball
 
@@ -10,9 +10,9 @@ It is traditional, in the programming world, to create the most simple program p
 
 ## Installing Rust
 
-Rust is free, open source, software (FOSS). Most of the contibutions to Rust are from volunteers who use the language. In many ways, the spirit of FanGraphs mirrors that of the FOSS community. There is a common mission to make all tools and resources available to everyone, equally, regardless of their ability to pay. For FanGraphs, those who can, are encouraged to purchase a membership; in FOSS, the expectation is usually geared towards contributing back to the project in some way.
+Rust is free, open source, software (FOSS). Most of the contributions to Rust are from volunteers who use the language. In many ways, the spirit of FanGraphs mirrors that of the FOSS community. There is a common mission to make all tools and resources available to everyone, equally, regardless of their ability to pay. For FanGraphs, those who can, are encouraged to purchase a membership; in FOSS, the expectation is usually geared towards contributing back to the project in some way.
 
-To install Tust visit [the rust website](https://www.rust-lang.org/) and click on the "Get Started" button. It will figure out which operating system your using and give you an option to download Rustup in either the 32 bit or 64 bit version. Choose the 64 bit version and install it on your system. Installation is straightforward and should run smoothly on all systems. If you run into issues, please leave a comment and I'll try to walk you through it.
+To install, visit [the rust website](https://www.rust-lang.org/) and click on the "Get Started" button. It will figure out which operating system your using and give you an option to download Rustup in either the 32 bit or 64 bit version. Choose the 64 bit version and install it on your system. Installation is straightforward and should run smoothly on all systems. If you run into issues, please leave a comment and I'll try to walk you through it.
 
 ## Installing Visual Studio Code
 
@@ -46,7 +46,7 @@ We're going to write one simple line in the terminal:\
 
 Cargo is Rust's package manager and was installed when you installed Rust. It makes creating applications and libraries super easy. Typing the above command created a folder called "fangraphs-learn-to-code" with some key files.
 
-Go to the File menu and click Open Folder. Find the folder that Cargo created for you and open it. Re-open the terminal again. The terminal should now be pointing to the "fangraphs-learn-to-code" folder that was created. You should see a list of files and folders. If you don't find the icons on the top left of the screen and find called "Exploter".
+Go to the File menu and click Open Folder. Find the folder that Cargo created for you and open it. Re-open the terminal again. The terminal should now be pointing to the "fangraphs-learn-to-code" folder that was created. You should see a list of files and folders. If you don't find the icons on the top left of the screen and find called "Explorer".
 
 #### Cargo.toml
 
@@ -90,4 +90,4 @@ This will compile our program, creating a fangraphs-learn-to-code.exe and runnin
 
 ## Conclusion
 
-If you see the words "Hello, baseball!" in your terminal, you are now officialy a Rust programmer. As a volunteer member of the Rust Evangelism Strike Force, I welcome you.
+If you see the words "Hello, baseball!" in your terminal, you are now officially a Rust programmer. As a volunteer member of the Rust Evangelism Strike Force, I welcome you.

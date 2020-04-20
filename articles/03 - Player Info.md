@@ -6,7 +6,7 @@ In Chapters 1 & 2 we discussed the motivation for this series and got our very f
 
 ## Important Copyright Notice
 
-The data we are going to leverage are all copyright MLB, subject to the [copyright notice](http://gdx.mlb.com/components/copyright.txt) by MLBAM. Neither the author, nor this series, are affiliated with Major League Baseball. We will be using the data in a non-commerical, non-bulk manner, for education purposes only.
+The data we are going to leverage are all copyright MLB, subject to the [copyright notice](http://gdx.mlb.com/components/copyright.txt) by MLBAM. Neither the author, nor this series, are affiliated with Major League Baseball. We will be using the data in a non-commercial, non-bulk manner, for education purposes only.
 
 ## The Evolution from the Gameday API to the Stats API
 
@@ -46,6 +46,45 @@ isahc = "0.9"
 
 ## The Player API
 
-We're going to look at Mike Trout. You can view Mike Trout's info at [http://statsapi.mlb.com/api/v1/people/545361](http://statsapi.mlb.com/api/v1/people/545361). Firefox has a great JSON viewer, so I recommend opening the link in Firefox. You'll notice that the data has a very simle structure.
+We're going to look at Mike Trout. You can view Mike Trout's info at [https://statsapi.mlb.com/api/v1/people/545361](https://statsapi.mlb.com/api/v1/people/545361). Firefox has a great JSON viewer, so I recommend opening the link in Firefox. You'll notice that the data has a very simle structure.
 
 At the top level we have a ```copyright``` object and a ```people``` object. The people object contains a list of people. In this case, we've only asked for one People, so the list has a size of 1. The API can also give you a lot of other info, via "hydrations", which we will cover in a later chapter.
+
+## Downloading the player file into our program
+
+Open up the main.rs file in your text editor. Delete the "hello, baseball" line in the  We're going to add 4 lines of code between the ```{}``` after the  ```fn main()```:
+
+```rust
+    use isahc::prelude::*;
+
+    let mut response = isahc::get("https://statsapi.mlb.com/api/v1/people/545361").unwrap();
+    let mike_trout_bio = response.text().unwrap();
+
+    println!("Mike Trout's Bio: {}", mike_trout_bio);
+```
+
+Now, go back to your terminal and type ```cargo run```.
+
+You'll notice that this takes a little longer than our "Hello, baseball!" example from Chapter 2. Cargo is downloading Isahc, as well as its dependencies, and compiling it all for you. Easily using other people's software is one of the key features of Rust. In technical terms, this means that Rust **composes** extremely well.
+
+The quality of these community developed and maintained crates is exceptional. Reliable, performant and easy to use.
+
+## Serialization and De-serialization
+
+The task of taking in data and bringing it into your program is called de-serialization. The process of taking data from your program and writing it to disk, is called serialization. If you are doing any (de)serializing in Rust, you most certainly want to use the [Serde](https://crates.io/crates/serde) crate. Serde is so fantastic, it borders on magical.
+
+## Adding Serde as a Dependency
+
+To add Serde to our program, we'll add ```serde = "1.0.106"``` to our ```[dependencies]``` section in our Cargo.toml file. The section should look like this now:
+
+```toml
+[dependencies]
+isahc = "0.9"
+serde = "1.0.106"
+```
+
+We now have exactly two crates that we are depending on. Isahc to grab stuff from the network and Serde to convert it into a data format we can use.
+
+## Declarative De-serialization
+
+In order to

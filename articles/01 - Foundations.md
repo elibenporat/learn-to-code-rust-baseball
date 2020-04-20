@@ -4,17 +4,17 @@ If you've ever wanted to learn to write code, but didn't know where to begin, we
 
 Before we begin, I feel it is important to clarify the primary goals of this series. They are as follows:
 
-* **Pedagogy**: Our primary goal is to empower the reader to build her own codebases. We'll drive towards that by focusing early on on foundational elements of computer science, while attempting to strike a fine balance detail and complexity. I'll do my best not to assume any pre-existing knowledge.
+* **Pedagogy**: Our primary goal is to empower the reader to build her own code bases. We'll drive towards that by focusing early on on foundational elements of computer science, while attempting to strike a fine balance detail and complexity. I'll do my best not to assume any pre-existing knowledge.
 * **Inspiration**: Software engineering is unique in the sense that it doesn't require years of expensive education to enter. Anyone, at any age, can participate, as long as they have a computer with an internet connection. My personal hope is to inspire some of you to try your hand at coding.
 * **Baseball Themed**: The hardest challenge will be keeping the content balanced between core concepts, while still keeping it baseball themed. This is a baseball site after all. This may not be possible for the first few articles, but I'll do my best.
 
-It is important to note that I am not an expert in programming langauge theory nor computer science. These articles will undergo techincal review before publishing, however any errata are my responsibility.
+It is important to note that I am not an expert in programming language theory nor computer science. These articles will undergo technical review before publishing, however any errata are my responsibility.
 
 ## Why Rust and not Python or R
 
 The vast majority of job openings posted on this site list requirements that include Python or R. This begs the question, why wouldn't we write this series focusing on a language that is more "mainstream". The short answer is that I don't know Python, nor do I know R.
 
-The long aswer is that we want to teach something more foundational, and orders of magnitude more powerful. This boils down to the difference between dynamic languages (such as Python, R and Javascript) and static languages such as Rust and C/C++. Using Rust as our primary language will allow us to explore fundamental computer science (CS) principles that are hidden in dynamic languages. These concepts are important to understand, even if you end up using a higher level language later on.
+The long answer is that we want to teach something more foundational, and orders of magnitude more powerful. This boils down to the difference between dynamic languages (such as Python, R and Javascript) and static languages such as Rust and C/C++. Using Rust as our primary language will allow us to explore fundamental computer science (CS) principles that are hidden in dynamic languages. These concepts are important to understand, even if you end up using a higher level language later on.
 
 ## Low Level vs High Level Programming Languages
 
@@ -22,7 +22,7 @@ What is a "low level" language as compared to a "high level" language? Roughly s
 
 ## Trade-offs and the Cost/Benefit of Abstraction
 
-Computer science is all about trade-offs. In baseball, you can swap in a better offensive player, but you sacrifice some defense. In computer science, up until Rust, you either had to manually manage all your memory (we'll dive into memory later) in C/C++ or use a much slower, garbage collected language. Rust's major breaktrough was its ability to manage memory through static analysis. Static analysis simply means that it reads your code and figures out all the memory management at compile time.
+Computer science is all about trade-offs. In baseball, you can swap in a better offensive player, but you sacrifice some defense. In computer science, up until Rust, you either had to manually manage all your memory (we'll dive into memory later) in C/C++ or use a much slower, garbage collected language. Rust's major breakthrough was its ability to manage memory through static analysis. Static analysis simply means that it reads your code and figures out all the memory management at compile time.
 
 The trade-off that Rust makes is that it requires you to understand a lot, before being able to be proficient in it. However, once you get past the initial learning curve, you now have the best of all worlds, performance, reliability and productivity.
 
@@ -44,7 +44,7 @@ Types are the foundation of everything. They group together bits and imbue them 
 
 ## Dynamic Types vs Static Types
 
-In a dynamic language, you don't see any types. However, if you ask javascript to compare the numberic 5 with the text '5', you get some interesting behaviour.
+In a dynamic language, you don't see any types. However, if you ask javascript to compare the numeric 5 with the text '5', you get some interesting behaviour.
 
 ```javascript
 5 ==  '5' \\ true
@@ -63,7 +63,7 @@ Let's split our most basic types into two main buckets: number types (including 
 
 * Signed integer: Positive or negative integer.
 * Unsigned integer: Positive integer.
-* Floting point number: Positiive or negative number with decimal points.
+* Floating point number: Positive or negative number with decimal points.
 * Booleans: 0 for false, 1 for true.
 
 Integers are always aligned to power of 2 bytes, so they are either 8, 16, 32, 64 or 128 bits in length. We use ```u``` to signify unsigned (positive) or ```i``` for integers that may positive or negative. So a 64 bit positive-only (unsigned) integer will be a ```u64``` compared to the signed version ```i64```.
@@ -89,7 +89,7 @@ let pitcher_id: u32 = 477132; // Clayton Kershaw
 
 // Say we wanted to track how many runs ahead or behind a team was.
 // An i8 will go from -128 to 127, which should be a large enough range for us.
-// In this case, our plate appearanc starts with the batting team down by 4 runs.
+// In this case, our plate appearance starts with the batting team down by 4 runs.
 let mut runs_ahead: i8 = -4;
 ```
 
