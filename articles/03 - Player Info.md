@@ -69,22 +69,10 @@ You'll notice that this takes a little longer than our "Hello, baseball!" exampl
 
 The quality of these community developed and maintained crates is exceptional. Reliable, performant and easy to use.
 
-## Serialization and De-serialization
+Let's go through each line of code.
 
-The task of taking in data and bringing it into your program is called de-serialization. The process of taking data from your program and writing it to disk, is called serialization. If you are doing any (de)serializing in Rust, you most certainly want to use the [Serde](https://crates.io/crates/serde) crate. Serde is so fantastic, it borders on magical.
-
-## Adding Serde as a Dependency
-
-To add Serde to our program, we'll add ```serde = "1.0.106"``` to our ```[dependencies]``` section in our Cargo.toml file. The section should look like this now:
-
-```toml
-[dependencies]
-isahc = "0.9"
-serde = "1.0.106"
+```rust
+    use isahc::prelude::*;
 ```
 
-We now have exactly two crates that we are depending on. Isahc to grab stuff from the network and Serde to convert it into a data format we can use.
-
-## Declarative De-serialization
-
-In order to
+This tells rust to pull in all the default functions that isahc gives you. This is important since you may have a few crates that you are using that each have their own ```get``` function. If there is a conflict where two crates have the same name, Rust has your back and will give you a very helpful warning. We won't run into this issue here.
