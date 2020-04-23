@@ -6,7 +6,7 @@ In Chapters 1 & 2 we discussed the motivation for this series and got our very f
 
 ## Important Copyright Notice
 
-The data we are going to leverage are all copyright MLB, subject to the [copyright notice](http://gdx.mlb.com/components/copyright.txt) by MLBAM. Neither the author, nor this series, are affiliated with Major League Baseball. We will be using the data in a non-commercial, non-bulk manner, for education purposes only.
+The data we are going to leverage are all copyright MLB, subject to the [copyright notice](http://gdx.mlb.com/components/copyright.txt) by MLBAM. Neither the author, nor this series, are affiliated with Major League Baseball. We will be using the data in a non-commercial, non-bulk, manner, for educational purposes only.
 
 ## The Evolution from the Gameday API to the Stats API
 
@@ -75,4 +75,30 @@ Let's go through each line of code.
     use isahc::prelude::*;
 ```
 
-This tells rust to pull in all the default functions that isahc gives you. This is important since you may have a few crates that you are using that each have their own ```get``` function. If there is a conflict where two crates have the same name, Rust has your back and will give you a very helpful warning. We won't run into this issue here.
+This line pulls in all the functions that isahc defines in its ```prelude```. The ```::``` is a [scope resolution operator](https://en.wikipedia.org/wiki/Scope_resolution_operator) which means that ```prelude``` belongs to ```isahc```. You can think of this as a way to differentiate between similar names. For example, say we have two players named Mike. In order to differentiate the two, we'd call them ```piazza::mike``` and ```trout::mike```.
+
+```rust
+    let mut response = isahc::get("https://statsapi.mlb.com/api/v1/people/545361").unwrap();
+```
+
+We define a ```response``` variable, which needs to be mutable (mut is short for mutable). Mutable is a programmer's way of saying something can change. In Rust, variables are immutable (cannot be changed) by default; we must explicitly state which variables need to be mutable. This is one of the most important concepts in Rust, which we'll dig into later when we discuss unique vs shared access. If you are interested in further reading, I'll point you to [Matt Brubeck's post](https://limpet.net/mbrubeck/2019/02/07/rust-a-unique-perspective.html).
+
+We use the ```get``` function to request a ```Response``` from the internet. Asking for data from the internet is an operation that might fail. Rust wants you to be very explicit about how to handle the potential failure since ```Error``` handling is very important. Any operation which might run into a problem, such as a network request, returns a ```Result``` type, which **wraps** the thing you wanted.
+
+The ```get``` function returns a ```Result``` which is either a ```Response``` or an ```Error```. We can also say that ```Result``` wraps around the ```Response```. In a "proper" program, we'd explicitly handle the error. For now, we will simply ```.unwrap()``` the ```Response``` from the ```Result``` wrapper. We are telling Rust that we want the program to crash if it runs into a problem. This is a complex topic, so don't worry if it doesn't quite make sense yet. We'll run into this a LOT.
+
+```rust
+    let mike_trout_bio = response.text().unwrap();
+```
+
+We now use the ```response``` to make another request from the internet, asking for the ```Body``` of the document, which we'll read as text. This too could fail and returns a ```Result``` which we'll ```.unwrap()``` for now. We'll store the text in the ```mike_trout_bio``` variable.
+
+```rust
+    println!("Mike Trout's Bio: {}", mike_trout_bio);
+```
+
+Now that we have the text, we can print it out. We use the ```println``` macro to print a line. The ```{}``` curly braces are replaced by whatever comes after the comma. This is very similar to how Python does it.
+
+## Summary
+
+We got Mike Trout's bio from the MLB Stats API and printed it to our terminal.You should now see his entire bio printed in your terminal.

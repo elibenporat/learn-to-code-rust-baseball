@@ -4,11 +4,11 @@
 
 In Chapters 1 & 2 we discussed the motivation for this series and got our very first "Hello, baseball" application working. Each chapter builds upon the previous chapters. You'll need a working Rust installation, along with a good text editor. I recommend the excellent (and free) Visual Studio Code.
 
-Chapter 3 covered the basics of downloading a file from the internet. We used the excellent [Isahc](https://crates.io/crates/isahc) crate for this.
+Chapter 3 covered the basics of downloading a file from the internet. We used the excellent [Isahc](https://crates.io/crates/isahc) crate for this and pulled Mike Trout's bio.
 
 ## Important Copyright Notice
 
-The data we are going to leverage are all copyright MLB, subject to the [copyright notice](http://gdx.mlb.com/components/copyright.txt) by MLBAM. Neither the author, nor this series, are affiliated with Major League Baseball. We will be using the data in a non-commercial, non-bulk manner, for education purposes only.
+The data we are going to leverage are all copyright MLB, subject to the [copyright notice](http://gdx.mlb.com/components/copyright.txt) by MLBAM. Neither the author, nor this series, are affiliated with Major League Baseball. We will be using the data in a non-commercial, non-bulk, manner, for educational purposes only.
 
 ## Serialization and De-serialization
 
@@ -16,12 +16,12 @@ The task of taking in data and bringing it into your program is called de-serial
 
 ## Adding Serde as a Dependency
 
-To add Serde to our program, we'll add ```serde = "1.0.106"``` to our ```[dependencies]``` section in our Cargo.toml file. The section should look like this now:
+To add Serde to our program, we'll add ```serde = {version = "1.0", features = ["derive"]}``` to our ```[dependencies]``` section in our Cargo.toml file. The section should look like this now:
 
 ```toml
 [dependencies]
 isahc = "0.9"
-serde = "1.0.106"
+serde = {version = "1.0", features = ["derive"]}
 ```
 
 We now have exactly two crates that we are depending on. Isahc to grab stuff from the network and Serde to convert it into a data format we can use.
