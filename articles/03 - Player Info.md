@@ -20,7 +20,7 @@ The MLB Stats API is everything the old XML API was, but better. We'll be explor
 
 Rust has a philosophy of a minimal standard library. This means that whereas other languages might have a lot of things built in to the language, Rust encourages the use of 3rd party libraries. This is mostly because things that are built into a language are hard to change, which makes them hard to improve. Thus, things are only built in once they've gone through a rigorous process.
 
-If you need to do a task, always start with Rust's official package repository [https://crates.io](crates.io). In Rust, "crates" are packages. You can also use the [htpps://lib.rs](lib.rs) for more advanced searching of the repository.
+If you need to do a task, always start with Rust's official package repository [crates.io](https://crates.io). In Rust, "crates" are packages. You can also use the [lib.rs](https://lib.rs) for more advanced searching of the repository.
 
 ## A Library for Getting Data from the Internet
 
