@@ -16,7 +16,7 @@ Rust is free, open source, software (FOSS). Most of the contributions to Rust ar
 
 First, you'll need to install the Build Tools for Visual Studio 2019. You can find the download here: [https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2019](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2019) or use this link directly: [https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16).
 
-To install Rust, visit [the rust website](https://www.rust-lang.org/) and click on the "Get Started" button. It will figure out which operating system your using and give you an option to download Rustup in either the 32 bit or 64 bit version. Choose the 64 bit version and install it on your system. Installation is straightforward and should run smoothly on all systems. If you run into issues, please leave a comment and I'll try to walk you through it.
+To install Rust, visit [the rust website](https://www.rust-lang.org/) and click on the "Get Started" button. It will figure out which operating system you're using and give you an option to download Rustup in either the 32 bit or 64 bit version. Choose the 64 bit version and install it on your system. Installation is straightforward and should run smoothly on all systems. If you run into issues, please leave a comment and I'll try to walk you through it.
 
 ## Installing Visual Studio Code
 
