@@ -12,7 +12,11 @@ It is traditional, in the programming world, to create the most simple program p
 
 Rust is free, open source, software (FOSS). Most of the contributions to Rust are from volunteers who use the language. In many ways, the spirit of FanGraphs mirrors that of the FOSS community. There is a common mission to make all tools and resources available to everyone, equally, regardless of their ability to pay. For FanGraphs, those who can, are encouraged to purchase a membership; in FOSS, the expectation is usually geared towards contributing back to the project in some way.
 
-To install, visit [the rust website](https://www.rust-lang.org/) and click on the "Get Started" button. It will figure out which operating system your using and give you an option to download Rustup in either the 32 bit or 64 bit version. Choose the 64 bit version and install it on your system. Installation is straightforward and should run smoothly on all systems. If you run into issues, please leave a comment and I'll try to walk you through it.
+[The Rust Book](https://doc.rust-lang.org/book/ch01-01-installation.html) has a great overview of how to install Rust. I'll cover the Windows specific setup below:
+
+First, you'll need to install the Build Tools for Visual Studio 2019. You can find the download here: [https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2019](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2019) or use this link directly: [https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16).
+
+To install Rust, visit [the rust website](https://www.rust-lang.org/) and click on the "Get Started" button. It will figure out which operating system your using and give you an option to download Rustup in either the 32 bit or 64 bit version. Choose the 64 bit version and install it on your system. Installation is straightforward and should run smoothly on all systems. If you run into issues, please leave a comment and I'll try to walk you through it.
 
 ## Installing Visual Studio Code
 
@@ -25,6 +29,8 @@ One of the many neat features with VS Code, is the fantastic plugin system. Once
 Search for rust-analyzer published by matklad. Rust analyzer will assist in checking our code, giving type hints and a lot of other things that will be invaluable. It is under heavy development and improves weekly.
 
 Search for Better TOML published by bungcip. TOML is used by Rust's package manager.
+
+We'll want to configure VS Code so that it saves automatically. I find this is helpful since I often forget to save before compiling. Go to File... Preferences... Settings and then search for "Auto Save". I use the "onFocusChange" setting, which will auto save your file if you switch from editing to the terminal.
 
 VS code isn't Rust specific. There are plugins for pretty much every language out there. For example, the Python plugin has been downloaded about 18.8M times.
 
