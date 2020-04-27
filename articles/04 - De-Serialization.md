@@ -6,7 +6,7 @@ In Chapters 1 & 2 we discussed the motivation for this series and got our very f
 
 Chapter 3 covered the basics of downloading a file from the internet. We used the excellent [Isahc](https://crates.io/crates/isahc) crate for this and pulled Mike Trout's bio.
 
-## Important Copyright Notice
+## Copyright Notice
 
 The data we are going to leverage are all copyright MLB, subject to the [copyright notice](http://gdx.mlb.com/components/copyright.txt) by MLBAM. Neither the author, nor this series, are affiliated with Major League Baseball. We will be using the data in a non-commercial, non-bulk, manner, for educational purposes only.
 
@@ -25,8 +25,108 @@ serde = {version = "1.0", features = ["derive"]}
 serde_json = "1"
 ```
 
-We now have exactly two crates that we are depending on. Isahc to grab stuff from the network and Serde to convert it into a data format we can use.
+We now have exactly three crates that we are depending on. Isahc to grab stuff from the network and Serde + serde_json to convert it into a data format we can use.
 
 ## Declarative De-serialization
 
 In order to use the data, we need to tell our program what the data should like. Serde will then handle all of the logic and magically convert the data into something we can use. We don't need to define everything we want - we only need to define the parts we need. We'll build up our structure piece by piece.
+
+## Structs
+
+A ```struct``` groups together other ```struct```s and types. We're going to build our ```struct```ure up piece by piece. If we look at the printout of Trout's bio in the terminal, we'll see there are two objects at the root (top-most) level. There's the "copyright" object which is the same for every player, as well as a "people" object.
+
+The ```people``` object contains a list of people. We can tell that it's a list, since it begins with a square bracket ```[```. A curly brace ```{``` indicates a single object, rather than a list. In Rust, we call lists ```Vectors```, abbreviated to ```Vec```.
+
+We'll need to define two ```struct```s, one for the parent object and one for the people object. We don't need to pull in the copyright notice into our ```struct```.
+
+## The Players Struct
+
+We'll define our Players ```struct``` as follows:
+
+```rust
+#[derive(Debug, Deserialize)]
+struct Players {
+    people: Vec<Person>,
+}
+```
+
+We're calling it ```Players``` and not ```Player``` since the structure could have multiple players, we've simply only asked for one. Let's go through this line by line.
+
+```rust
+#[derive(Debug, Deserialize)]
+```
+
+The ```derive``` macro tells the Rust compiler what features the struct needs. In our case, we need the ability to print it out in our terminal (```debug```) as well as ```deserialize``` data to our struct. While we could theoretically enable everything under the sun for each struct by default, this would be extremely wasteful. In Python and JavaScript, every "object" you create, will come with a ton of stuff that you get "automatically". This is great, since you don't have to worry about any of that. However, it also means that you are forced to carry that around with you. Rust, will always force you to "opt-in" to most things that you want. Right now all we need are ```debug``` and ```deserialize```. We can easily add more later on.
+
+```rust
+struct Players {
+    people: Vec<Person>,
+}
+```
+
+This defines a ```struct``` which we've called ```Players```. Inside of ```Players``` we have a field called ```people```, which is a list of ```Person```s.
+
+The ```Vec<Person>``` should be read as a Vector (list), whose items all have the type ```Person```. In a systems programming language, every list must always be a list of the exact same type. Put another way, it must be a list of things that all have the exact same structure. We haven't yet defined the ```Person``` struct, so let's go ahead and define that in the most minimal way possible:
+
+```rust
+#[derive(Debug, Deserialize)]
+struct Person {
+    id: u32,
+}
+```
+
+We're leaving out pretty much all other data. We're defining a structure called ```Person``` that (for now) has only one field, a 32 bit unsigned (always positive) integer. We no longer need this:
+
+```rust
+println!("Mike Trout's Bio: {}", mike_trout_bio);
+```
+
+Go ahead and delete that line.
+
+Now we are all ready for some serde magic:
+
+```rust
+let bio_deserialized: Players = serde_json::from_str(&mike_trout_bio).unwrap();
+dbg!(bio_deserialized);
+```
+
+Once we've set up our struct, all we have to do is specify the type and everything else falls into place. There are 3 parts to it, let's break it down:
+
+First, ```let bio_deserialized: Players``` is saying that we want a variable called ```bio_deserialized``` and we want it to have the structure of ```Players```.
+
+Then, we used ```serde_json```'s ```from_str()``` function. We passed in the text stored in ```mike_trout_bio``` into the ```from_str()``` function. The ```&``` means we are passing a reference to the value, rather than the value itself. We'll get into references later; for now just think of it as we're **borrowing** the value, rather than taking ownership. The concepts of ownership and borrowing are fundamental to understanding Rust; we'll dive into them once we've built up enough concepts to wrap them around.
+
+Lastly, since the de-serialization could fail, it returns a ```Result```, which is **either** the ```Players``` struct you wanted, or an ```Error```. We ```.unwrap()``` the ```Players``` from the ```Result``` and put the value into ```bio_deserialized```. If there was an ```Error```, our program will crash. Error handling is a rather large topic which we'll cover much later. For now, we'll just ```.unwrap()``` everything.
+
+```rust
+dbg!(bio_deserialized);
+```
+
+The last line simply prints out the debug value of ```bio_deserialized``` to our terminal.
+
+Your code should now look like this:
+
+```rust
+fn main() {
+    use isahc::prelude::*;
+    use serde::Deserialize;
+
+    let mut response = isahc::get("https://statsapi.mlb.com/api/v1/people/545361").unwrap();
+    let mike_trout_bio = response.text().unwrap();
+
+    #[derive(Debug, Deserialize)]
+    struct Players {
+        people: Vec<Person>,
+    }
+
+    #[derive(Debug, Deserialize)]
+    struct Person {
+        id: u32,
+    }
+
+    let bio_deserialized: Players = serde_json::from_str(&mike_trout_bio).unwrap();
+    dbg!(bio_deserialized);
+}
+```
+
+Go to your terminal and type ```cargo run```. You should see a very simple print out.
