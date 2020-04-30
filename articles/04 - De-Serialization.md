@@ -130,3 +130,7 @@ fn main() {
 ```
 
 Go to your terminal and type ```cargo run```. You should see a very simple print out.
+
+## Summary
+
+We built up a very simple structure that allowed us to capture a player bio. In chapter 5, we'll expand on this.
