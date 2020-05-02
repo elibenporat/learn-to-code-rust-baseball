@@ -29,7 +29,7 @@ We now have exactly three crates that we are depending on. Isahc to grab stuff f
 
 ## Declarative De-serialization
 
-In order to use the data, we need to tell our program what the data should like. Serde will then handle all of the logic and magically convert the data into something we can use. We don't need to define everything we want - we only need to define the parts we need. We'll build up our structure piece by piece.
+In order to use the data, we need to tell our program what the data looks like. Serde will then handle all of the logic and magically convert the data into something we can use. We don't need to define everything we want - we only need to define the parts we need. We'll build up our structure piece by piece.
 
 ## Structs
 
