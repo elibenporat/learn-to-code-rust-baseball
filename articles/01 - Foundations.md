@@ -20,9 +20,13 @@ The long answer is that we want to teach something more foundational, and orders
 
 What is a "low level" language as compared to a "high level" language? Roughly speaking, it boils down to how many layers of abstraction above the physical hardware the language lies. For this reason, you'll see systems programming languages such as Rust, C/C++, COBOL and Fortran, referred to as "close to the metal". The lower the level of the language, the more access to the physical hardware you have. The higher level you go, the more the language itself makes decisions for you.
 
+## Computer Memory
+
+In order to do any work, the computer needs to store information in fast, short-term memory. Once the work is done, it must clean up that memory, making space for other work. Memory is limited in size, so this is really important! There are essentially two ways to clean up: the programmer tells the program when to clean up memory, or a "garbage collector" comes and cleans out the garbage memory from time to time.
+
 ## Trade-offs and the Cost/Benefit of Abstraction
 
-Computer science is all about trade-offs. In baseball, you can swap in a better offensive player, but you sacrifice some defense. In computer science, up until Rust, you either had to manually manage all your memory (we'll dive into memory later) in C/C++ or use a much slower, garbage collected language. Rust's major breakthrough was its ability to manage memory through static analysis. Static analysis simply means that it reads your code and figures out all the memory management at compile time.
+Computer science is all about trade-offs. In baseball, you can swap in a better offensive player, but you sacrifice some defense. In computer science, up until Rust, you either had to manually manage all your memory (say in C/C++) or use a much slower, garbage collected language. Rust's major breakthrough was its ability to manage memory through static analysis. Static analysis simply means that it reads your code and figures out all the memory management needed when you build your program.
 
 The trade-off that Rust makes is that it requires you to understand a lot, before being able to be proficient in it. However, once you get past the initial learning curve, you now have the best of all worlds, performance, reliability and productivity.
 
