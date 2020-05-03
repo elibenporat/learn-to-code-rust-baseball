@@ -28,6 +28,7 @@ struct Person {
     mlb_debut_date: String,
     birth_city: String,
     birth_state_province: String,
+    birth_country: String,
 }
 ```
 
@@ -47,21 +48,39 @@ Flip to your terminal and do another ```cargo run```. You should see a few more 
 
 If we wanted to, we could list all the countries that have produced baseball players. Listing all the possibilities, is referred to as **enumerating** all the possibilities. With the Person ```struct``` above, we had a situation where each Person had an id **AND** a name **AND** a birth city, etc. ```Struct```s are used to group together fields that are "AND"s. ```Enum```s (short for enumerations) group together fields that you must pick precisely one of; they group together fields that are **OR**s.
 
-Let's define a very basic Country enum:
+```Enum```s are best when we can enumerate all the variants. For example, a batter can bat "Left", "Right" or "Switch". The full, enumerated, list of possible values are one of those 3. By creating an ```enum```, we are encoding this into our type system. We'll now be able to leverage this knowledge later in our program. We could just encode it as text (aka a ```String```), like we did with the city and country fields. Hard coding it will help us down the line, which we'll cover in later chapters.
+
+Let's enumerate the BatSideCode and BatSideDescription:
 
 ```rust
 #[derive(Debug, Deserialize)]
-enum Country {
-    Canada,
-    USA,
-    #[serde(other)]
-    Other,
+enum BatSideCode {
+    R,
+    L,
+    S,
+}
+
+#[derive(Debug, Deserialize)]
+enum BatSideDescription {
+    Right,
+    Left,
+    Switch,
 }
 ```
 
-The ```#[serde(other)]``` line means that anything that doesn't match to Canada or USA will be put into the "Other" bucket. We could of course list out all the possible countries, however we're over-simplifying here in order to teach the concept.
+We've now created two ```enum```s that can only ever be 1 of 3 things. If we ever need to refer to one of the variants, we'll use the syntax ```BatSideCode::R``` or ```BatSideDescription::Right```. This uses the same ```::``` syntax we discussed with the ```use``` statement.
 
-Let's update our Person struct to include the new Country enum:
+Now that we can add a ```BatSide``` struct:
+
+```rust
+#[derive(Debug, Deserialize)]
+struct BatSide {
+    code: BatSideCode,
+    description: BatSideDescription,
+}
+```
+
+We created a new ```struct``` which now has the two ```enum```s as its fields. We can now add this to our Person ```struct```:
 
 ```rust
 #[derive(Debug, Deserialize)]
@@ -75,14 +94,17 @@ struct Person {
     mlb_debut_date: String,
     birth_city: String,
     birth_state_province: String,
-    birth_country: Country,
+    birth_country: String,
+    bat_side: BatSide,
 }
 ```
 
-Let's also change the ```let mut response``` line to look like this:
+You'll notice that we now have a mixture of different types. We have some integers (```u32``` and ```u16```), as well as ```String```s and the custom type we defined (```BatSide```).
+
+Let's now change the ```let mut response``` line to look like this:
 
 ```rust
 let mut response = isahc::get("http://statsapi.mlb.com/api/v1/people/?personIds=545361,458015").unwrap();
 ```
 
-Let's do another ```cargo run``` and you should now see both Mike Trout and Joey Votto's bio.
+Let's do another ```cargo run```; you should now see both Mike Trout and Joey Votto's bio.
