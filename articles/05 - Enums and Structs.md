@@ -37,15 +37,15 @@ You'll notice there's a new line there:
 #[serde(rename_all="camelCase")]
 ```
 
-This line is crucial. The data format that the API uses is JSON, which likes to separate words by capitalizing allTheWordsAfterTheFirstWord. This is called "camelCase". Rust demands that you split_up_words_with_underscores. This is called "snake_case". Snake case is a lot easier to read, since humans are used to splitting up words with spaces, rather than capital letters. This magical line tells SerDe to interpret all the source fields as camelCase and map them their snake_case equivalents.
+This line is crucial. The data format that the API uses is JSON, which likes to separate words by capitalizing allTheWordsAfterTheFirstWord. This is called "camelCase". Rust demands that you split_up_words_with_underscores. This is called "snake_case". Snake case is a lot easier to read, since humans are used to splitting up words with spaces, rather than capital letters. This magical line tells SerDe to interpret all the source fields as camelCase and map them to their snake_case equivalents.
 
 We also introduced a new type, the ```String``` type. We'll discuss ```String```s a lot as we go. For now, think of it as text that can be any length.
 
-Flip to your terminal and do another ```cargo run```. You should see a few more fields in your struct.
+Flip to your terminal and do another ```cargo run```. You should see a few more fields in your print out.
 
 ## The Country Enum
 
-If we wanted to, we could list all the countries that have produced baseball players. Listing all the possibilities, is referred to as **enumerating** all the possibilities. With the Person ```struct``` above, we had a situation where each Person has an id **AND** a name **AND** a birth city, etc. ```Struct```s are used to group together fields that are "AND"s. ```Enum```s (short for enumerations) group together fields that you must pick precisely one of.
+If we wanted to, we could list all the countries that have produced baseball players. Listing all the possibilities, is referred to as **enumerating** all the possibilities. With the Person ```struct``` above, we had a situation where each Person had an id **AND** a name **AND** a birth city, etc. ```Struct```s are used to group together fields that are "AND"s. ```Enum```s (short for enumerations) group together fields that you must pick precisely one of; they group together fields that are **OR**s.
 
 Let's define a very basic Country enum:
 
