@@ -12,13 +12,13 @@ It is important to note that I am not an expert in programming language theory n
 
 ## Why Rust and not Python or R
 
-The vast majority of job openings posted on this site list requirements that include Python or R. This begs the question, why wouldn't we write this series focusing on a language that is more "mainstream". The short answer is that I don't know Python, nor do I know R.
+The vast majority of job openings posted on this site list requirements that include Python or R. This begs the question, why wouldn't we write this series focusing on a language that is more "mainstream"?
 
-The long answer is that we want to teach something more foundational, and orders of magnitude more powerful. This boils down to the difference between dynamic languages (such as Python, R and Javascript) and static languages such as Rust and C/C++. Using Rust as our primary language will allow us to explore fundamental computer science (CS) principles that are hidden in dynamic languages. These concepts are important to understand, even if you end up using a higher level language later on.
+We want to teach something more foundational, and orders of magnitude more powerful. It boils down to the difference between dynamic languages (such as Python, R and Javascript) and static languages such as Rust and C/C++. Using Rust as our primary language will allow us to explore fundamental computer science (CS) principles that are hidden in dynamic languages. These concepts are important to understand, even if you end up using a higher level language later on.
 
 ## Low Level vs High Level Programming Languages
 
-What is a "low level" language as compared to a "high level" language? Roughly speaking, it boils down to how many layers of abstraction above the physical hardware the language lies. For this reason, you'll see systems programming languages such as Rust, C/C++, COBOL and Fortran, referred to as "close to the metal". The lower the level of the language, the more access to the physical hardware you have. The higher level you go, the more the language itself makes decisions for you.
+What is a "low level" language as compared to a "high level" language? Roughly speaking, it boils down to how many layers of abstraction above the physical hardware the language lies. For this reason, you'll see systems programming languages such as Rust, C/C++, COBOL and Fortran, referred to as "close to the metal". The lower the level of the language, the more access to the physical hardware you have. The higher the level you go, the more the language itself makes decisions for you.
 
 ## Computer Memory
 
