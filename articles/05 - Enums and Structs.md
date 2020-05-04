@@ -107,4 +107,40 @@ Let's now change the ```let mut response``` line to look like this:
 let mut response = isahc::get("http://statsapi.mlb.com/api/v1/people/?personIds=545361,458015").unwrap();
 ```
 
-Let's do another ```cargo run```; you should now see both Mike Trout and Joey Votto's bio.
+Let's do another ```cargo run```; you should now see both Mike Trout and Joey Votto's bios.
+
+## Let's Make an Error
+
+Part of the beginners journey in Rust includes making mistakes, and having the compiler explain to you all the things you did wrong. This happens a lot early on, but subsides once you get the hang of things. First, let's run into the issue where SerDe expects a field, but can't find it. We'll get this error by adding Franmil Reyes to our query. Let's change the ```let mut response``` line again:
+
+```rust
+let mut response = isahc::get("http://statsapi.mlb.com/api/v1/people/?personIds=545361,458015,614177").unwrap();
+```
+
+Do another cargo run in your terminal and you should get a message like this:
+
+> thread 'main' panicked at 'called `Result::unwrap()` on an `Err` value: Error("missing field `birthStateProvince`", line: 146, column: 3)', src\main.rs:48:37
+
+The Rust compiler is telling us that it ran into an Error because it was looking for the field ```birthStateProvince``` but couldn't find it. It also relates to Line 48, column 37 in our main.rs file (your specific location might be different). If you go to your browser and look at what is produced, you'll note that Franmil Reyes does not have any ```birthStateProvince``` field Specifically, it is pointing to this line:
+
+```rust
+let bio_deserialized: Players = serde_json::from_str(&mike_trout_bio).unwrap();
+```
+
+Even more specifically, it is pointing to the ```.unwrap()``` part. When we unwrap a value from a ```Result``` ```enum```, the program will crash and tell you where the program was. There are two ways we can fix this, we can fix the thing that caused the error, or we can add logic that will handle the error. For now, we'll just fix the error.
+
+## The Option Enum
+
+```Option``` is a key concept in Rust. An ```Option``` is simply a way to state that something might not be there. It is either ```Some```thing or ```None```. In your ```Person``` struct, we'll find the ```birth_state_province: String,``` line and change it to:
+
+```rust
+birth_state_province: Option<String>,
+```
+
+Cargo run and everything should now work. If you look closely at the printout, you'll see that Franmil Reyes has this in his bio: ```birth_state_province: None,```. This means that there was no value found for him.
+
+## Summary
+
+You should have some comfort with ```Struct```s and ```Enum```s. Don't fret if it hasn't fully sunk in yet, these are bedrock concepts, so you'll see them a lot going forward. Everything in Rust revolves around ```Struct```s for grouping things together, and ```Enum```s for specifying that something can only ever be one item on a list.
+
+We also skimmed the surface of things that can go wrong.
