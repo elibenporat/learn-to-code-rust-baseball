@@ -137,6 +137,8 @@ Even more specifically, it is pointing to the ```.unwrap()``` part. When we unwr
 birth_state_province: Option<String>,
 ```
 
+We wrapped the ```String``` in an ```Option``` in order to state that the item may or may not be there. The ```<``` and ```>``` are called "angle brackets" and are used to wrap one type around another type. This is why Rust uses the .unwrap() syntax to 
+
 Cargo run and everything should now work. If you look closely at the printout, you'll see that Franmil Reyes has this in his bio: ```birth_state_province: None,```. This means that there was no value found for him.
 
 ## Summary
