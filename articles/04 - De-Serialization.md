@@ -10,6 +10,99 @@ Chapter 3 covered the basics of downloading a file from the internet. We used th
 
 The data we are going to leverage are all copyright MLB, subject to the [copyright notice](http://gdx.mlb.com/components/copyright.txt) by MLBAM. Neither the author, nor this series, are affiliated with Major League Baseball. We will be using the data in a non-commercial, non-bulk, manner, for educational purposes only.
 
+## What are you going to build in this chapter?
+
+Some people prefer to learn by first seeing the end result and than diving into the details. If you are one of them you can simply copy paste the code below to see the final output of this chapter.
+
+Cargo.toml
+```
+[package]
+name = "fangraphs-learn-to-code"
+version = "0.1.0"
+authors = ["you <you@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+isahc = "0.9"
+serde = {version = "1.0", features = ["derive"]}
+serde_json = "1"
+```
+
+src/main.rs
+```rust
+fn main() {
+    use isahc::prelude::*;
+    use serde::Deserialize;
+
+    let mut response = isahc::get("http://statsapi.mlb.com/api/v1/people/?personIds=545361,458015").unwrap();
+    let mike_trout_bio = response.text().unwrap();
+
+    #[derive(Debug, Deserialize)]
+    struct Players {
+        people: Vec<Person>,
+    }
+
+    #[derive(Debug, Deserialize)]
+    enum Country {
+        Canada,
+        USA,
+        #[serde(other)]
+        Other,
+    }
+
+    #[derive(Debug, Deserialize)]
+    #[serde(rename_all="camelCase")]
+    struct Person {
+        id: u32,
+        full_name: String,
+        height: String,
+        weight: u16,
+        birth_date: String,
+        mlb_debut_date: String,
+        birth_city: String,
+        birth_state_province: String,
+        birth_country: Country,
+    }
+
+    let bio_deserialized: Players = serde_json::from_str(&mike_trout_bio).unwrap();
+    dbg!(bio_deserialized);
+}
+```
+
+`cargo run` will output the following:
+
+```bash
+    Finished dev [unoptimized + debuginfo] target(s) in 0.59s
+     Running `target/debug/fangraphs-learn-to-code`
+[src/main.rs:36] bio_deserialized = Players {
+    people: [
+        Person {
+            id: 545361,
+            full_name: "Mike Trout",
+            height: "6\' 2\"",
+            weight: 235,
+            birth_date: "1991-08-07",
+            mlb_debut_date: "2011-07-08",
+            birth_city: "Vineland",
+            birth_state_province: "NJ",
+            birth_country: USA,
+        },
+        Person {
+            id: 458015,
+            full_name: "Joey Votto",
+            height: "6\' 2\"",
+            weight: 220,
+            birth_date: "1983-09-10",
+            mlb_debut_date: "2007-09-04",
+            birth_city: "Toronto",
+            birth_state_province: "ON",
+            birth_country: Canada,
+        },
+    ],
+}
+
+```
+
 ## Serialization and De-serialization
 
 The task of taking in data and bringing it into your program is called de-serialization. The process of taking data from your program and writing it to disk, is called serialization. If you are doing any (de)serializing in Rust, you most certainly want to use the [Serde](https://crates.io/crates/serde) crate. Serde is so fantastic, it borders on magical.
