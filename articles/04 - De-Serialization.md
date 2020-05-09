@@ -154,7 +154,7 @@ Cargo.toml
 [package]
 name = "fangraphs-learn-to-code"
 version = "0.1.0"
-authors = ["you <you@gmail.com>"]
+authors = ["Learn To Code <learn-to-code@fangraphs.com>"]
 edition = "2018"
 
 [dependencies]

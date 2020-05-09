@@ -8,7 +8,9 @@ Chapter 3 covered the basics of downloading a file from the internet. We used th
 
 Chapter 4 covered the very basics of de-serialization. We're going to dig much deeper here.
 
-Chapter 5 dug into ```struct```s and ```enum```s, and introduced the ```Option``` type.
+Chapter 5 dug into `struct`s and `enum`s, and introduced the `Option` type.
+
+Today, we'll add more `Option`s to our `struct`ure and then flatten the data out. If you prefer to skip to the end, go to the [All The Code In This Chapter](#all-the-code-from-this-chapter) section.
 
 ## Copyright Notice
 
@@ -16,4 +18,6 @@ The data we are going to leverage are all copyright MLB, subject to the [copyrig
 
 ## Being Explicit About Things That COULD Go Wrong
 
-Rust takes ```Error``` handling **very** seriously.
+Rust takes `Error` handling **very** seriously.
+
+## All The Code From This Chapter
