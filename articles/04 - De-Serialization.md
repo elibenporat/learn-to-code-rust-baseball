@@ -33,7 +33,16 @@ In order to use the data, we need to tell our program what the data looks like. 
 
 ## Structs
 
-A ```struct``` groups together other ```struct```s and types. We're going to build our ```struct```ure up piece by piece. If we look at the printout of Trout's bio in the terminal, we'll see there are two objects at the root (top-most) level. There's the "copyright" object which is the same for every player, as well as a "people" object.
+A ```struct``` is simply a type that you define yourself, which can group together other ```struct```s and types. You define a ```struct``` by writing something like this:
+
+```rust
+struct Baseball {
+}
+```
+
+Specifically, we define it the keyword ```struct``` followed by the name of the ```struct```. The ```{``` ```}``` braces contain all the fields that the ```struct``` will have. In this super simple example, we've defined a ```struct``` with no fields.
+
+We're going to build our ```struct```ure up piece by piece. If we look at the printout of Trout's bio in the terminal, we'll see there are two objects at the root (top-most) level. There's the "copyright" object which is the same for every player, as well as a "people" object.
 
 The ```people``` object contains a list of people. We can tell that it's a list, since it begins with a square bracket ```[```. A curly brace ```{``` indicates a single object, rather than a list. In Rust, we call lists ```Vectors```, abbreviated to ```Vec```.
 
