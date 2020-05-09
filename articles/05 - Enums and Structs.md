@@ -1,4 +1,4 @@
-# Learn To Code With Rust and Baseball - Chapter 4 : Enums and Structs
+# Learn To Code With Rust and Baseball - Chapter 5 : Enums and Structs
 
 ## Review
 
