@@ -137,12 +137,12 @@ Even more specifically, it is pointing to the ```.unwrap()``` part. When we unwr
 birth_state_province: Option<String>,
 ```
 
-We wrapped the ```String``` in an ```Option``` in order to state that the item may or may not be there. The ```<``` and ```>``` are called "angle brackets" and are used to wrap one type around another type. This is why Rust uses the .unwrap() syntax to 
+We wrapped the ```String``` in an ```Option``` in order to state that the item may or may not be there. The ```<``` and ```>``` are called "angle brackets" and are used to wrap one type around another type. This is why Rust uses the .unwrap() syntax to take something out of an ```Option```.
 
-Cargo run and everything should now work. If you look closely at the printout, you'll see that Franmil Reyes has this in his bio: ```birth_state_province: None,```. This means that there was no value found for him.
+Cargo run and everything should now work. If you look closely at the printout, you'll see that Franmil Reyes has this in his bio: ```birth_state_province: None,```, which means that there was no value found for him.
 
 ## Summary
 
-You should have some comfort with ```Struct```s and ```Enum```s. Don't fret if it hasn't fully sunk in yet, these are bedrock concepts, so you'll see them a lot going forward. Everything in Rust revolves around ```Struct```s for grouping things together, and ```Enum```s for specifying that something can only ever be one item on a list.
+You should have some comfort with ```Struct```s and ```Enum```s. These are bedrock concepts, and you'll see them a lot going forward. Rust programs are built with ```Struct```s for grouping things together, and ```Enum```s for specifying that something can only ever be one item on a list.
 
-We also skimmed the surface of things that can go wrong.
+We also skimmed the surface of things that can go wrong. Error handling is a very deep topic that we'll chip away at as we go.
