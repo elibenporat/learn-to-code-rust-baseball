@@ -1,33 +1,35 @@
+<!-- numbers -->
+
 # Learn To Code With Rust and Baseball - Chapter 4 : De-serialization
 
 Table of Contents:
-* [Review](#review)
-* [Copyright Notice](#copyright-notice)
-* [Serialization and De-serialization](#serialization-and-de-serialization)
-* [Adding Serde as a Dependency](#adding-serde-as-a-dependency)
-* [Declarative De-serialization](#declarative-de-serialization)
-* [Structs](#structs)
-* [The Players Struct](#the-players-struct)
-* [Summary](#summary)
-* [All the code of this chapter](#all-the-code-of-this-chapter)
+* [1. Review](#1-review)
+* [2. Copyright Notice](#2-copyright-notice)
+* [3. Serialization and De-serialization](#3-serialization-and-de-serialization)
+* [4. Adding Serde as a Dependency](#4-adding-serde-as-a-dependency)
+* [5. Declarative De-serialization](#5-declarative-de-serialization)
+* [6. Structs](#6-structs)
+* [7. The Players Struct](#7-the-players-struct)
+* [8. Summary](#8-summary)
+* [9. All the code of this chapter](#9-all-the-code-of-this-chapter)
 
 
-## Review
+## 1. Review
 
 In Chapters 1 & 2 we discussed the motivation for this series and got our very first "Hello, baseball" application working. Each chapter builds upon the previous chapters. You'll need a working Rust installation, along with a good text editor. I recommend the excellent (and free) Visual Studio Code.
 
 Chapter 3 covered the basics of downloading a file from the internet. We used the excellent [Isahc](https://crates.io/crates/isahc) crate for this and pulled Mike Trout's bio.
 
-## Copyright Notice
+## 2. Copyright Notice
 
 The data we are going to leverage are all copyright MLB, subject to the [copyright notice](http://gdx.mlb.com/components/copyright.txt) by MLBAM. Neither the author, nor this series, are affiliated with Major League Baseball. We will be using the data in a non-commercial, non-bulk, manner, for educational purposes only.
 
 
-## Serialization and De-serialization
+## 3. Serialization and De-serialization
 
 The task of taking in data and bringing it into your program is called de-serialization. The process of taking data from your program and writing it to disk, is called serialization. If you are doing any (de)serializing in Rust, you most certainly want to use the [Serde](https://crates.io/crates/serde) crate. Serde is so fantastic, it borders on magical.
 
-## Adding Serde as a Dependency
+## 4. Adding Serde as a Dependency
 
 To add Serde to our program, we'll add ```serde = {version = "1.0", features = ["derive"]}``` to our ```[dependencies]``` section in our Cargo.toml file. We'll also need to add ```serde_json = "1"```. The section should look like this now:
 
@@ -40,11 +42,11 @@ serde_json = "1"
 
 We now have exactly three crates that we are depending on. Isahc to grab stuff from the network and Serde + serde_json to convert it into a data format we can use.
 
-## Declarative De-serialization
+## 5. Declarative De-serialization
 
 In order to use the data, we need to tell our program what the data looks like. Serde will then handle all of the logic and magically convert the data into something we can use. We don't need to define everything we want - we only need to define the parts we need. We'll build up our structure piece by piece.
 
-## Structs
+## 6. Structs
 
 A ```struct``` groups together other ```struct```s and types. We're going to build our ```struct```ure up piece by piece. If we look at the printout of Trout's bio in the terminal, we'll see there are two objects at the root (top-most) level. There's the "copyright" object which is the same for every player, as well as a "people" object.
 
@@ -52,7 +54,7 @@ The ```people``` object contains a list of people. We can tell that it's a list,
 
 We'll need to define two ```struct```s, one for the parent object and one for the people object. We don't need to pull in the copyright notice into our ```struct```.
 
-## The Players Struct
+## 7. The Players Struct
 
 We'll define our Players ```struct``` as follows:
 
@@ -144,11 +146,11 @@ fn main() {
 
 Go to your terminal and type ```cargo run```. You should see a very simple print out.
 
-## Summary
+## 8. Summary
 
 We built up a very simple structure that allowed us to capture a player bio. In chapter 5, we'll expand on this.
 
-## All the code of this chapter
+## 9. All the code of this chapter
 
 Some people prefer to learn by first seeing the end result and than diving into the details. If you are one of them you can simply copy paste the code below to see the final output of this chapter.
 
