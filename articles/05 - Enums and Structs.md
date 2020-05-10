@@ -1,4 +1,4 @@
-# Learn To Code With Rust and Baseball - Chapter 5 : Enums and Structs
+# Learn To Code With Rust and Baseball - Chapter 5 : Display more player information
 
 ## Review
 
@@ -7,6 +7,8 @@ In Chapters 1 & 2 we discussed the motivation for this series and got our very f
 Chapter 3 covered the basics of downloading a file from the internet. We used the excellent [Isahc](https://crates.io/crates/isahc) crate for this and pulled Mike Trout's bio.
 
 Chapter 4 covered the very basics of de-serialization. We're going to dig much deeper here.
+
+In this chapter you will understand what are an Enum, Struct, and Option Enum, when to use each one, and how to use them in your application
 
 ## Copyright Notice
 
@@ -146,3 +148,122 @@ Cargo run and everything should now work. If you look closely at the printout, y
 You should have some comfort with ```Struct```s and ```Enum```s. These are bedrock concepts, and you'll see them a lot going forward. Rust programs are built with ```Struct```s for grouping things together, and ```Enum```s for specifying that something can only ever be one item on a list.
 
 We also skimmed the surface of things that can go wrong. Error handling is a very deep topic that we'll chip away at as we go.
+
+## All The Code From This Chapter
+
+
+src/main.rs
+
+```rust
+fn main() {
+    use isahc::prelude::*;
+    use serde::Deserialize;
+
+    let mut response = isahc::get("http://statsapi.mlb.com/api/v1/people/?personIds=545361,458015,614177").unwrap();
+    let mike_trout_bio = response.text().unwrap();
+
+    #[derive(Debug, Deserialize)]
+    struct Players {
+        people: Vec<Person>,
+    }
+
+    #[derive(Debug, Deserialize)]
+    enum BatSideCode {
+        R,
+        L,
+        S,
+    }
+
+    #[derive(Debug, Deserialize)]
+    enum BatSideDescription {
+        Right,
+        Left,
+        Switch,
+    }
+
+    #[derive(Debug, Deserialize)]
+    struct BatSide {
+        code: BatSideCode,
+        description: BatSideDescription,
+    }
+
+    #[derive(Debug, Deserialize)]
+    #[serde(rename_all="camelCase")]
+    struct Person {
+        id: u32,
+        full_name: String,
+        height: String,
+        weight: u16,
+        birth_date: String,
+        mlb_debut_date: String,
+        birth_city: String,
+        birth_state_province: Option<String>,
+        birth_country: String,
+        bat_side: BatSide,
+    }
+
+    let bio_deserialized: Players = serde_json::from_str(&mike_trout_bio).unwrap();
+    dbg!(bio_deserialized);
+}
+```
+
+`cargo run` will output the following:
+
+```bash
+   Compiling fangraphs-learn-to-code v0.1.0 (/tmp/test/fangraphs-learn-to-code)
+    Finished dev [unoptimized + debuginfo] target(s) in 1.94s
+     Running `target/debug/fangraphs-learn-to-code`
+[src/main.rs:49] bio_deserialized = Players {
+    people: [
+        Person {
+            id: 545361,
+            full_name: "Mike Trout",
+            height: "6\' 2\"",
+            weight: 235,
+            birth_date: "1991-08-07",
+            mlb_debut_date: "2011-07-08",
+            birth_city: "Vineland",
+            birth_state_province: Some(
+                "NJ",
+            ),
+            birth_country: "USA",
+            bat_side: BatSide {
+                code: R,
+                description: Right,
+            },
+        },
+        Person {
+            id: 458015,
+            full_name: "Joey Votto",
+            height: "6\' 2\"",
+            weight: 220,
+            birth_date: "1983-09-10",
+            mlb_debut_date: "2007-09-04",
+            birth_city: "Toronto",
+            birth_state_province: Some(
+                "ON",
+            ),
+            birth_country: "Canada",
+            bat_side: BatSide {
+                code: L,
+                description: Left,
+            },
+        },
+        Person {
+            id: 614177,
+            full_name: "Franmil Reyes",
+            height: "6\' 5\"",
+            weight: 275,
+            birth_date: "1995-07-07",
+            mlb_debut_date: "2018-05-14",
+            birth_city: "Palenque",
+            birth_state_province: None,
+            birth_country: "Dominican Republic",
+            bat_side: BatSide {
+                code: R,
+                description: Right,
+            },
+        },
+    ],
+}
+```
