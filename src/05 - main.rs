@@ -10,7 +10,7 @@ fn main() {
         people: Vec<Person>,
     }
 
-    #[derive(Debug, Deserialize)]
+    #[derive(Debug, Deserialize, Clone)]
     #[serde(rename_all="camelCase")]
     struct Person {
         id: u32,
@@ -25,21 +25,21 @@ fn main() {
         bat_side: BatSide,
     }
 
-    #[derive(Debug, Deserialize)]
+    #[derive(Debug, Deserialize, Clone)]
     enum BatSideCode {
         R,
         L,
         S,
     }
 
-    #[derive(Debug, Deserialize)]
+    #[derive(Debug, Deserialize, Clone)]
     enum BatSideDescription {
         Right,
         Left,
         Switch,
     }
 
-    #[derive(Debug, Deserialize)]
+    #[derive(Debug, Deserialize, Clone)]
     struct BatSide {
         code: BatSideCode,
         description: BatSideDescription,

@@ -59,14 +59,14 @@ Listing all the possibilities, is referred to as **enumerating** all the possibi
 Let's enumerate the BatSideCode and BatSideDescription:
 
 ```rust
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 enum BatSideCode {
     R,
     L,
     S,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 enum BatSideDescription {
     Right,
     Left,
@@ -79,7 +79,7 @@ We've now created two `enum`s that can only ever be 1 of 3 things. If we ever ne
 Now that we can add a `BatSide` struct, which contains the two `enum`s we just created.
 
 ```rust
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 struct BatSide {
     code: BatSideCode,
     description: BatSideDescription,
@@ -89,7 +89,7 @@ struct BatSide {
 We created a new ```struct``` which now has the two ```enum```s as its fields. We can now add this to our Person ```struct```:
 
 ```rust
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 #[serde(rename_all="camelCase")]
 struct Person {
     id: u32,
@@ -106,6 +106,8 @@ struct Person {
 ```
 
 You'll notice that we now have a mixture of different types. We have some integers (`u32` and `u16`), as well as `String`s and the custom type we defined (`BatSide`).
+
+We also added the `Clone` instruction to our `derive`. This will make our lives easier in future chapters.
 
 Let's now change the `let mut response` line to look like this:
 
@@ -187,7 +189,7 @@ fn main() {
         people: Vec<Person>,
     }
 
-    #[derive(Debug, Deserialize)]
+    #[derive(Debug, Deserialize, Clone)]
     #[serde(rename_all="camelCase")]
     struct Person {
         id: u32,
@@ -202,21 +204,21 @@ fn main() {
         bat_side: BatSide,
     }
 
-    #[derive(Debug, Deserialize)]
+    #[derive(Debug, Deserialize, Clone)]
     enum BatSideCode {
         R,
         L,
         S,
     }
 
-    #[derive(Debug, Deserialize)]
+    #[derive(Debug, Deserialize, Clone)]
     enum BatSideDescription {
         Right,
         Left,
         Switch,
     }
 
-    #[derive(Debug, Deserialize)]
+    #[derive(Debug, Deserialize, Clone)]
     struct BatSide {
         code: BatSideCode,
         description: BatSideDescription,
