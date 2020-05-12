@@ -70,7 +70,7 @@ Let's split our most basic types into two main buckets: number types (including 
 * Floating point number: Positive or negative number with decimal points.
 * Booleans: 0 for false, 1 for true.
 
-Integers are always aligned to power of 2 bytes, so they are either 8, 16, 32, 64 or 128 bits in length. We use ```u``` to signify unsigned (positive) or ```i``` for integers that may positive or negative. So a 64 bit positive-only (unsigned) integer will be a ```u64``` compared to the signed version ```i64```.
+Integers are always aligned to power of 2 bytes, so they are either 8, 16, 32, 64 or 128 bits in length. We use `u` to signify unsigned (positive) or `i` for integers that may positive or negative. So a 64 bit positive-only (unsigned) integer will be a `u64` compared to the signed version `i64`.
 
 Say we were looking to describe the initial state of a plate appearance. It would look something like this:
 
@@ -97,7 +97,7 @@ let pitcher_id: u32 = 477132; // Clayton Kershaw
 let mut runs_ahead: i8 = -4;
 ```
 
-The ```//``` are comments. The ```mut``` keyword tells rust that this value might change later in the code. If Rust doesn't find anywhere else that the variable can change, it will warn you. We'll discuss this in much greater detail later, as this touches upon the fundamental concepts of ownership and borrowing.
+The `//` are comments. The `mut` keyword tells rust that this value might change later in the code. If Rust doesn't find anywhere else that the variable can change, it will warn you. We'll discuss this in much greater detail later, as this touches upon the fundamental concepts of ownership and borrowing.
 
 ## Conclusion
 

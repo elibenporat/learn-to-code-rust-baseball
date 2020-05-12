@@ -71,7 +71,7 @@ Revised version:
     }
 ```
 
-The ```SideDescription``` adds an "Either" which is what they use to describe switch pitchers, such as Pat Vendite.
+We removed the word "Bat" from all of the fields. Also, the ```SideDescription``` adds an "Either" which is used to describe switch pitchers, such as Pat Venditte.
 
 Do a quick Cargo Run. You should see the following error message:
 
@@ -154,6 +154,5 @@ In other words, we want to pull out the `BatSideCode` and `BatSideDescription` f
 The `Person` struct we've been building is actually the capturing struct, rename that to `PersonCapture`.
 
 ## From PersonCapture Into Person
-
 
 ## All The Code From This Chapter

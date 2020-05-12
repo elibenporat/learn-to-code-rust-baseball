@@ -1,4 +1,4 @@
-# Learn To Code With Rust and Baseball - Chapter 3 : Player Info
+# Learn To Code With Rust and Baseball - Chapter 3 : Getting Data
 
 ## Review
 
@@ -18,9 +18,9 @@ The MLB Stats API is everything the old XML API was, but better. We'll be explor
 
 ## Adding Functionality - Crates.io
 
-Rust has a philosophy of a minimal standard library. This means that whereas other languages might have a lot of things built in to the language, Rust encourages the use of 3rd party libraries. This is mostly because things that are built into a language are hard to change, which makes them hard to improve. Thus, things are only built in once they've gone through a rigorous process.
+Rust has a minimal standard library. This means that whereas other languages might have a lot of things built in to the language, Rust encourages the use of 3rd party libraries. Features that are built into a language are hard to change, which makes them hard to improve. Thus, things are only built in to Rust once they've gone through a rigorous process.
 
-If you need to do a task, always start with Rust's official package repository [crates.io](https://crates.io). In Rust, "crates" are packages. You can also use the [lib.rs](https://lib.rs) for more advanced searching of the repository.
+If you need to do a task, always start with Rust's official package repository [crates.io](https://crates.io). In Rust, "crates" are packages. You can also use the [lib.rs](https://lib.rs) site for more advanced searching of the repository.
 
 ## A Library for Getting Data from the Internet
 
@@ -34,10 +34,10 @@ Adding a library to your rust program is really easy. All we need to do is edit 
 [dependencies]
 ```
 
-Then simply add ```isahc = "0.9"``` to the line below.
+Then simply add `isahc = "0.9"` to the line below.
 That's it.
 
-Your ```[dependencies]``` section should look like this:
+Your `[dependencies]` section should look like this:
 
 ```toml
 [dependencies]
@@ -65,6 +65,25 @@ Open up the main.rs file in your text editor. Delete the "hello, baseball" line 
 
 Now, go back to your terminal and type ```cargo run```.
 
+You should see an output that looks like this:
+
+```bash
+Mike Trout's Bio: {
+  "copyright" : "Copyright 2020 MLB Advanced Media, L.P.  Use of any content on this page acknowledges agreement to the terms posted here http://gdx.mlb.com/components/copyright.txt",
+  "people" : [ {
+    "id" : 545361,
+    "fullName" : "Mike Trout",
+    "link" : "/api/v1/people/545361",
+    "firstName" : "Michael",
+    "lastName" : "Trout",
+    "primaryNumber" : "27",
+    "birthDate" : "1991-08-07",
+    "currentAge" : 28,
+    "birthCity" : "Vineland",
+    "birthStateProvince" : "NJ",
+    ...
+```
+
 You'll notice that this takes a little longer than our "Hello, baseball!" example from Chapter 2. Cargo is downloading Isahc, as well as its dependencies, and compiling it all for you. Easily using other people's software is one of the key features of Rust. In technical terms, this means that Rust **composes** extremely well.
 
 The quality of these community developed and maintained crates is exceptional. Reliable, performant and easy to use.
@@ -75,17 +94,17 @@ Let's go through each line of code.
     use isahc::prelude::*;
 ```
 
-This line pulls in all the functions that isahc defines in its ```prelude```. The ```::``` is a [scope resolution operator](https://en.wikipedia.org/wiki/Scope_resolution_operator) which means that ```prelude``` belongs to ```isahc```. You can think of this as a way to differentiate between similar names. For example, say we have two players named Mike. In order to differentiate the two, we'd call them ```piazza::mike``` and ```trout::mike```.
+This line pulls in all the functions that isahc defines in its `prelude`. The `::` is a [scope resolution operator](https://en.wikipedia.org/wiki/Scope_resolution_operator) which means that `prelude` belongs to `isahc`. You can think of this as a way to differentiate between similar names. For example, say we have two players named Mike. In order to differentiate the two, we'd call them `piazza::mike` and `trout::mike`.
 
 ```rust
     let mut response = isahc::get("https://statsapi.mlb.com/api/v1/people/545361").unwrap();
 ```
 
-We define a ```response``` variable, which needs to be mutable (mut is short for mutable). Mutable is a programmer's way of saying something can change. In Rust, variables are immutable (cannot be changed) by default; we must explicitly state which variables need to be mutable. This is one of the most important concepts in Rust, which we'll dig into later when we discuss unique vs shared access. If you are interested in further reading, I'll point you to [Matt Brubeck's post](https://limpet.net/mbrubeck/2019/02/07/rust-a-unique-perspective.html).
+We define a `response` variable, which needs to be mutable (mut is short for mutable). Mutable is a programmer's way of saying something can change. In Rust, variables are immutable (cannot be changed) by default; we must explicitly state which variables need to be mutable. This is one of the most important concepts in Rust, which we'll dig into later when we discuss unique vs shared access. If you are interested in further reading, I'll point you to [Matt Brubeck's post](https://limpet.net/mbrubeck/2019/02/07/rust-a-unique-perspective.html).
 
-We use the ```get``` function to request a ```Response``` from the internet. Asking for data from the internet is an operation that might fail. Rust wants you to be very explicit about how to handle the potential failure since ```Error``` handling is very important. Any operation which might run into a problem, such as a network request, returns a ```Result``` type, which **wraps** the thing you wanted.
+We use the `get` function to request a `Response` from the internet. Asking for data from the internet is an operation that might fail. Rust wants you to be very explicit about how to handle the potential failure since `Error` handling is very important. Any operation which might run into a problem, such as a network request, returns a `Result` type, which **wraps** the thing you wanted.
 
-The ```get``` function returns a ```Result``` which is either a ```Response``` or an ```Error```. We can also say that ```Result``` wraps around the ```Response```. In a "proper" program, we'd explicitly handle the error. For now, we will simply ```.unwrap()``` the ```Response``` from the ```Result``` wrapper. We are telling Rust that we want the program to crash if it runs into a problem. This is a complex topic, so don't worry if it doesn't quite make sense yet. We'll run into this a LOT.
+The `get` function returns a `Result` which is either a `Response` or an `Error`. We can also say that `Result` wraps around the `Response`. In a "proper" program, we'd explicitly handle the error. For now, we will simply `.unwrap()` the `Response` from the `Result` wrapper. We are telling Rust that we want the program to crash if it runs into a problem. This is a complex topic, so don't worry if it doesn't quite make sense yet. We'll run into this a LOT.
 
 ```rust
     let mike_trout_bio = response.text().unwrap();
@@ -101,4 +120,4 @@ Now that we have the text, we can print it out. We use the ```println``` macro t
 
 ## Summary
 
-We got Mike Trout's bio from the MLB Stats API and printed it to our terminal.You should now see his entire bio printed in your terminal.
+We got Mike Trout's bio from the MLB Stats API and printed it to our terminal.You should now see his entire bio printed in your terminal. You can view the source code snapshot at the end of Chapter 2, by going to [src/02 - main.rs](https://github.com/elibenporat/learn-to-code-rust-baseball/blob/master/src/02%20-%20main.rs).

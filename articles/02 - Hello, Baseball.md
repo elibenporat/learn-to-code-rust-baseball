@@ -4,7 +4,7 @@
 
 In chapter 1, we touched upon types and explained our motivation for using Rust as our pedagogical tool of choice. We'll review and expand on concepts as we go, so don't worry if there are parts that don't make sense yet. We're going to attempt to strike a fine balance between depth and concision.
 
-## Hello Baseball
+## Hello, Baseball
 
 It is traditional, in the programming world, to create the most simple program possible in a given language or platform. This is usually done by creating an application that simply prints the words "Hello, World!". In our case, we'll do the same thing, however, we'll print "Hello, Baseball!" instead. This will be our entire goal today. At the end of this article, you should have a working Rust application that prints out those two words.
 
@@ -62,7 +62,7 @@ You should a file called Cargo.toml in the list. Click on that file. You should 
 [package]
 name = "fangraphs-learn-to-code"
 version = "0.1.0"
-authors = ["Eli Ben-Porat <fangraphs-learn@ben-porat.com>"]
+authors = ["Learn To Code <learn-to-code@fangraphs.com>"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -70,7 +70,9 @@ edition = "2018"
 [dependencies]
 ```
 
-We'll use this file when we add dependencies. Rust makes adding software that other people wrote really easy. Since Rust compiles everything from source code, and has very strong stability guarantees, pretty much every single library that you import will just work. You don't need to change anything here yet.
+We'll use this file when we add dependencies. Rust makes adding software that other people wrote really easy. Since Rust compiles everything from source, and has very strong stability guarantees, it will just work.
+
+We don't need to change anything in our Cargo.toml file yet.
 
 #### The src folder and the main.rs file
 

@@ -1,4 +1,4 @@
-# Learn To Code With Rust and Baseball - Chapter 4 : De-serialization
+# Learn To Code With Rust and Baseball - Chapter 4 : Describing Data
 
 ## Review
 
@@ -18,7 +18,7 @@ The task of taking in data and bringing it into your program is called de-serial
 
 ## Adding Serde as a Dependency
 
-To add Serde to our program, we'll add ```serde = {version = "1.0", features = ["derive"]}``` to our ```[dependencies]``` section in our Cargo.toml file. We'll also need to add ```serde_json = "1"```. The section should look like this now:
+To add Serde to our program, we'll add `serde = {version = "1.0", features = ["derive"]}` to our `[dependencies]` section in our Cargo.toml file. We'll also need to add `serde_json = "1"`. The section should look like this now:
 
 ```toml
 [dependencies]
