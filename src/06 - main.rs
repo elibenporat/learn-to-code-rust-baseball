@@ -48,5 +48,9 @@ fn main() {
     }
 
     let bio_deserialized: Players = serde_json::from_str(&mike_trout_bio).unwrap();
-    dbg!(bio_deserialized);
+    let from = bio_deserialized.people[0].clone();
+    dbg!(&from);
+    
+    let into: Person = from.into();
+    dbg!(&into);
 }
