@@ -113,7 +113,7 @@ Lastly, since the de-serialization could fail, it returns a ```Result```, which 
 dbg!(bio_deserialized);
 ```
 
-The last line simply prints out the debug value of ```bio_deserialized``` to our terminal.
+The last line simply prints out the debug value of `bio_deserialized` to our terminal.
 
 Your code should now look like this:
 
@@ -140,101 +140,20 @@ fn main() {
 }
 ```
 
-Go to your terminal and type ```cargo run```. You should see a very simple print out.
-
-## Summary
-
-We built up a very simple structure that allowed us to capture a player bio. In chapter 5, we'll expand on this.
-
-## All The Code From This Chapter
-
-Cargo.toml
-
-```toml
-[package]
-name = "fangraphs-learn-to-code"
-version = "0.1.0"
-authors = ["Learn To Code <learn-to-code@fangraphs.com>"]
-edition = "2018"
-
-[dependencies]
-isahc = "0.9"
-serde = {version = "1.0", features = ["derive"]}
-serde_json = "1"
-```
-
-src/main.rs
-
-```rust
-fn main() {
-    use isahc::prelude::*;
-    use serde::Deserialize;
-
-    let mut response = isahc::get("http://statsapi.mlb.com/api/v1/people/?personIds=545361,458015").unwrap();
-    let mike_trout_bio = response.text().unwrap();
-
-    #[derive(Debug, Deserialize)]
-    struct Players {
-        people: Vec<Person>,
-    }
-
-    #[derive(Debug, Deserialize)]
-    enum Country {
-        Canada,
-        USA,
-        #[serde(other)]
-        Other,
-    }
-
-    #[derive(Debug, Deserialize)]
-    #[serde(rename_all="camelCase")]
-    struct Person {
-        id: u32,
-        full_name: String,
-        height: String,
-        weight: u16,
-        birth_date: String,
-        mlb_debut_date: String,
-        birth_city: String,
-        birth_state_province: String,
-        birth_country: Country,
-    }
-
-    let bio_deserialized: Players = serde_json::from_str(&mike_trout_bio).unwrap();
-    dbg!(bio_deserialized);
-}
-```
-
-`cargo run` will output the following:
+Go to your terminal and type `cargo run`. You should see a very simple print out that looks like this:
 
 ```bash
-    Finished dev [unoptimized + debuginfo] target(s) in 0.59s
-     Running `target/debug/fangraphs-learn-to-code`
-[src/main.rs:36] bio_deserialized = Players {
+[src\main.rs:19] bio_deserialized = Players {
     people: [
         Person {
             id: 545361,
-            full_name: "Mike Trout",
-            height: "6\' 2\"",
-            weight: 235,
-            birth_date: "1991-08-07",
-            mlb_debut_date: "2011-07-08",
-            birth_city: "Vineland",
-            birth_state_province: "NJ",
-            birth_country: USA,
-        },
-        Person {
-            id: 458015,
-            full_name: "Joey Votto",
-            height: "6\' 2\"",
-            weight: 220,
-            birth_date: "1983-09-10",
-            mlb_debut_date: "2007-09-04",
-            birth_city: "Toronto",
-            birth_state_province: "ON",
-            birth_country: Canada,
         },
     ],
 }
-
 ```
+
+We've left out a lot of data! This is intentional, as we want to show that you don't need to describe the whole structure in order to use it. In Chapter 5, we'll capture more of the data.
+
+## Summary
+
+We built up a very simple structure to describe our data, which allowed us to capture a player bio. In chapter 5, we'll expand on this.
