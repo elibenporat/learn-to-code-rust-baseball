@@ -1,4 +1,4 @@
-# Learn To Code With Rust and Baseball - Chapter 7 : Processing Data
+# Learn To Code With Rust and Baseball - Chapter 7 : Working with Lists
 
 ## Review
 
@@ -34,9 +34,9 @@ One way to create a `vector` in Rust goes like this:
 let list_of_players : Vec<u32> = vec![545361,458015,614177];
 ```
 
-First we say `let list_of_players` to name our list. Then we say `: Vec<u32>` to specify that it is a list of 32 bit integers. If we wrote `: Vec<String>` we'd be creating a list of `String`s instead.
+First we say `let list_of_players` to name our list. Then we say `: Vec<u32>` to specify that it is a list of 32 bit unsigned (always positive) integers. If we wrote `: Vec<String>` we'd be creating a list of `String`s instead.
 
-Then we feed it a list, using the `vec!` macro, with all the values we want separated by commas. Let's have some fun and create a list of all the batters that have first names that start with Z that have played in the majors since 2005. Copy-paste the following code into your main.rs:
+Then we feed it a list, using the `vec!` macro, with all the values we want separated by commas. Let's have some fun and create a list of all the batters that have first names that start with Z that have played in the majors (regular or spring training) since 2005. Copy-paste the following code into your main.rs:
 
 ```rust
 let players: Vec<u32> = vec![
@@ -58,7 +58,9 @@ let players: Vec<u32> = vec![
 ];
 ```
 
-You'll notice that we can break it into as many or few lines as we want. We can also leave a trailing comma after our last item. We can also go ahead and delete all of the following lines, we don't need them anymore:
+You'll notice that we can break it into as many or few lines as we want. We can also leave a trailing comma after our last item.
+
+Delete all of the following lines, we don't need them anymore:
 
 ```rust
 let mut response = isahc::get("http://statsapi.mlb.com/api/v1/people/?personIds=545361,458015,614177").unwrap();
@@ -77,7 +79,7 @@ It's every line that isn't a `struct` or `enum` definition, or the `use` declara
 
 ## Iterators Are AMAZING
 
-Iterators are flat out amazing. Once you get the hang of it, you'll have mastered one of the most powerful tools a programmer can have. Computers are really good at doing the same thing over and over again. Iterators do exactly that - they're a way of saying "do all these steps to all of these items".
+Iterators are flat out amazing. Once you get the hang of it, you'll have mastered one of the most powerful tools a programmer can have. Computers are really good at doing the same thing over and over again. Iterators do exactly that - they're a way of saying "do all of these steps to all of these items".
 
 Iterators are such a fundamental concept that we'll spend quite a bit of time on them. Let's start by turning our Vec of `players` into a Vec of urls. Here's the entire code to do that:
 
@@ -162,7 +164,7 @@ Change the debug line to this:
 dbg!(&urls[0]);
 ```
 
-This should give you a printout that lookgs like this:
+This should give you a printout that looks like this:
 
 ```bash
 Running `target\debug\fangraphs-learn-to-code.exe`
@@ -182,7 +184,7 @@ fn to_person (text: &str) -> Person {
 }
 ```
 
-This function takes the text we feed it and gives us back a `Person` struct. We follow the same method we did at the end of chapter 6, but now have "abstracted" that logic into a function called `to_person`. We can now use that function in a `.map()`!. It's not important to understand the function just yet, it's important to understand how to use the function in an iterator.
+This function takes the text we feed it (`text: &str`) and gives us back a `Person` struct (`-> Person`). We follow the same method we did at the end of chapter 6, but now have "abstracted" that logic into a function called `to_person`. We can now use that function in a `.map()`!. It's not important to understand the function completely, it's important to understand how to use the function in an iterator.
 
 You can put this function before or after the iterator, it doesn't matter.
 
@@ -216,7 +218,7 @@ thread 'main' panicked at 'called `Result::unwrap()` on an `Err` value: Error("m
 
 ## Remember Options?
 
-If you go back to Chapter 5, you'll remember that we had this same issue with `birth_state_province`. Specifically, any field which might be missing, we need to wrap in an `Option`. Let's go ahead and update both our `PersonTemp` (used to capture the data) and our `Person` to reflect this.
+If you go back to Chapter 5, you'll remember that we had this same issue with `birth_state_province`. Specifically, any field which might be missing, we need to wrap in an `Option`. Let's go ahead and update both our `PersonTemp` (used to capture the data) and our `Person` to reflect this. We'll keep the `bat_side` and `pitch_hand` fields alone for now, as converting from them is slightly more complicated.
 
 ```rust
     #[derive(Debug, Deserialize, Clone)]
@@ -231,8 +233,8 @@ If you go back to Chapter 5, you'll remember that we had this same issue with `b
         birth_city: Option<String>,
         birth_state_province: Option<String>,
         birth_country: Option<String>,
-        bat_side: Option<Side>,
-        pitch_hand: Option<Side>,
+        bat_side: Side,
+        pitch_hand: Side,
     }
 
     #[derive(Debug)]
@@ -246,44 +248,206 @@ If you go back to Chapter 5, you'll remember that we had this same issue with `b
         birth_city: Option<String>,
         birth_state_province: Option<String>,
         birth_country: Option<String>,
-        bat_side_code: Option<SideCode>,
-        bat_side_description: Option<SideDescription>,
-        pitch_hand_code: Option<SideCode>,
-        pitch_hand_description: Option<SideDescription>,
+        bat_side_code: SideCode,
+        bat_side_description: SideDescription,
+        pitch_hand_code: SideCode,
+        pitch_hand_description: SideDescription,
     }
-```
-
-We'll also need to update our `From` implementation. We'll cover this in detail in Chapter 8, as it involves concepts that we haven't covered yet.
-
-```rust
-impl From<PersonTemp> for Person {
-    fn from (person_temp: PersonTemp) -> Person {
-        let (bat_side_code, bat_side_description) = match person_temp.bat_side {
-            Some (side) => (Some(side.code), Some(side.description)),
-            None => (None, None)
-        };
-        let (pitch_hand_code, pitch_hand_description) = match person_temp.pitch_hand {
-            Some (side) => (Some(side.code), Some(side.description)),
-            None => (None, None)
-        };
-
-        Person {
-            id: person_temp.id,
-            full_name: person_temp.full_name,
-            height: person_temp.height,
-            weight: person_temp.weight,
-            birth_date: person_temp.birth_date,
-            mlb_debut_date: person_temp.mlb_debut_date,
-            birth_city: person_temp.birth_city,
-            birth_state_province: person_temp.birth_state_province,
-            birth_country: person_temp.birth_country,
-            bat_side_code,
-            bat_side_description,
-            pitch_hand_code,
-            pitch_hand_description,
-        }
-    }
-}
 ```
 
 Cargo Run should give you a nice printout of Zach Sorenson's bio.
+
+## Putting It All Together
+
+The heart of our code is a simple iterator that does things step by step.
+
+```rust
+let persons: Vec<Person> = players.into_iter()
+    // Take the players list, and turn it into an iterator
+    .map(|player| format!("http://statsapi.mlb.com/api/v1/people/{}", player))
+    // Take every player in the the list, and convert it into text that looks like a url
+    .map(|url| isahc::get(url).unwrap().text().unwrap())
+    // Download the url
+    .map(|text| to_person(&text) )
+    // Take the downloaded url text and convert it into a Person
+    .collect();
+    // Collect all the Persons into the Vec<Person> into the persons variable we called at the top.
+```
+
+Abstraction, in a programming context, means putting all the complicated stuff behind the scenes. This could mean that another library is handling it (such as Isahc for downloading data), or we've created our own function to do it (our `to_person` function). The end result is a 5 line iterator which turns our original list of player ids into a list of `Person`s.
+
+## Our Story So Far
+
+Cargo.toml:
+
+```toml
+[package]
+name = "fangraphs-learn-to-code"
+version = "0.1.0"
+authors = ["Learn To Code <learn-to-code@fangraphs.com>"]
+edition = "2018"
+
+[dependencies]
+isahc = "0.9"
+serde = {version = "1.0", features = ["derive"]}
+serde_json = "1"
+```
+
+src/main.rs:
+
+```rust
+fn main() {
+    use isahc::prelude::*;
+    use serde::Deserialize;
+
+    let players: Vec<u32> = vec![
+        400124, 400180, 425844, 434564, 435043, 435261,
+        435638, 444541, 444886, 446359, 451506, 474029,
+        476127, 488722, 501660, 501785, 501922, 502083,
+        502154, 518963, 519412, 534584, 534708, 534730,
+        543041, 543044, 543059, 543211, 543809, 543819,
+        543936, 544253, 545346, 554430, 572227, 581662,
+        581683, 594943, 595025, 600350, 605148, 605200,
+        605530, 605543, 607389, 608339, 621107, 621545,
+        623698, 623967, 626925, 630242, 641470, 641558,
+        642066, 643299, 643327, 643335, 650638, 656643,
+        657020, 657446, 661457, 661521, 656716, 661827,
+        663672, 663749, 664215, 664686, 661841, 666923,
+        668676, 668678, 669174, 669342, 667493, 669733,
+        673863, 676422, 676646, 676913, 670097, 685358,
+        689787,
+    ];
+
+    fn to_person (text: &str) -> Person {
+        let person_temp: Players = serde_json::from_str(text).unwrap();
+        person_temp.people[0].clone().into()
+    }
+
+    let persons: Vec<Person> = players.into_iter()
+        .map(|player| format!("http://statsapi.mlb.com/api/v1/people/{}", player))
+        .map(|url| isahc::get(url).unwrap().text().unwrap())
+        .map(|text| to_person(&text) )
+        .collect();
+
+    dbg!(&persons[0]);
+
+
+    #[derive(Debug, Deserialize)]
+    struct Players {
+        people: Vec<PersonTemp>,
+    }
+
+    #[derive(Debug, Deserialize, Clone)]
+    #[serde(rename_all="camelCase")]
+    struct PersonTemp {
+        id: u32,
+        full_name: String,
+        height: Option<String>,
+        weight: Option<u16>,
+        birth_date: Option<String>,
+        mlb_debut_date: Option<String>,
+        birth_city: Option<String>,
+        birth_state_province: Option<String>,
+        birth_country: Option<String>,
+        bat_side: Side,
+        pitch_hand: Side,
+    }
+
+    #[derive(Debug)]
+    struct Person {
+        id: u32,
+        full_name: String,
+        height: Option<String>,
+        weight: Option<u16>,
+        birth_date: Option<String>,
+        mlb_debut_date: Option<String>,
+        birth_city: Option<String>,
+        birth_state_province: Option<String>,
+        birth_country: Option<String>,
+        bat_side_code: SideCode,
+        bat_side_description: SideDescription,
+        pitch_hand_code: SideCode,
+        pitch_hand_description: SideDescription,
+    }
+
+    impl From<PersonTemp> for Person {
+        fn from (person_temp: PersonTemp) -> Person {
+
+            Person {
+                id: person_temp.id,
+                full_name: person_temp.full_name,
+                height: person_temp.height,
+                weight: person_temp.weight,
+                birth_date: person_temp.birth_date,
+                mlb_debut_date: person_temp.mlb_debut_date,
+                birth_city: person_temp.birth_city,
+                birth_state_province: person_temp.birth_state_province,
+                birth_country: person_temp.birth_country,
+                bat_side_code: person_temp.bat_side.code,
+                bat_side_description: person_temp.bat_side.description,
+                pitch_hand_code: person_temp.pitch_hand.code,
+                pitch_hand_description: person_temp.pitch_hand.description,
+            }
+        }
+    }
+
+    #[derive(Debug, Deserialize, Clone)]
+    enum SideCode {
+        R,
+        L,
+        S,
+    }
+
+    #[derive(Debug, Deserialize, Clone)]
+    enum SideDescription {
+        Right,
+        Left,
+        Switch,
+        Either,
+    }
+
+    #[derive(Debug, Deserialize, Clone)]
+    struct Side {
+        code: SideCode,
+        description: SideDescription,
+    }
+
+
+}
+```
+
+`cargo run` will output in your terminal:
+
+```bash
+ Finished dev [unoptimized + debuginfo] target(s) in 2.83s
+     Running `target\debug\fangraphs-learn-to-code.exe`
+[src\main.rs:34] &persons[0] = Person {
+    id: 400124,
+    full_name: "Zach Sorensen",
+    height: Some(
+        "6\' 0\"",
+    ),
+    weight: Some(
+        190,
+    ),
+    birth_date: Some(
+        "1977-01-03",
+    ),
+    mlb_debut_date: Some(
+        "2003-06-03",
+    ),
+    birth_city: Some(
+        "Salt Lake City",
+    ),
+    birth_state_province: Some(
+        "UT",
+    ),
+    birth_country: Some(
+        "USA",
+    ),
+    bat_side_code: S,
+    bat_side_description: Switch,
+    pitch_hand_code: R,
+    pitch_hand_description: Right,
+}
+```
