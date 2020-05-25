@@ -1,4 +1,4 @@
-# Learn To Code With Rust and Baseball - Chapter 7 : Iterator Magic
+# Learn To Code With Rust and Baseball - Chapter 8 : Iterator Magic
 
 ## Review
 
@@ -71,7 +71,7 @@ We won't actually need this, go ahead and delete the `let lhh_persons` iterator 
 
 ## The Relationship Between Height And Weight
 
-There is a misconception out there that Rust is lacking when it comes to data science. In my opinion, this couldn't be farther from the truth. We're going to create a multiple linera regression model, all in pure Rust.
+There is a misconception out there that Rust is lacking when it comes to data science. In my opinion, this couldn't be farther from the truth. We're going to create a multiple linear regression model, all in pure Rust.
 
 First, we'll need to convert the height from the text format that looks like `6'2"` into inches.
 
